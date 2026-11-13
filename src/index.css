@@ -1,0 +1,134 @@
+/* src/index.css
+   전역 스타일: 색상/글꼴 기준값, 기본 리셋, 입력창·버튼의 공통 모양
+   - 하늘색은 헤더와 '꼭 눌러야 하는 버튼', 선택된 항목에만 사용하고
+     나머지 화면은 흰색/연한 회색 바탕으로 조용하게 유지함 */
+
+/* 한글 글꼴(Pretendard). 인터넷이 안 될 때는 아래 font-family의 시스템 글꼴로 대체됨 */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+
+:root {
+    /* 하늘색 계열 */
+    --sky-50: #f0f9ff;
+    --sky-100: #e0f2fe;
+    --sky-200: #bae6fd;
+    --sky-300: #7dd3fc;
+    --sky-400: #38bdf8;
+    --sky-500: #0ea5e9;
+
+    /* 글자색: 하늘색 위에서도 읽기 쉽도록 어두운 남색을 사용 */
+    --ink: #0c2a43;
+    --text: #1e293b;
+    --muted: #64748b;
+
+    /* 바탕, 선 */
+    --bg: #f5f9fc;
+    --surface: #ffffff;
+    --line: #e2e8f0;
+    --line-strong: #cfdbe6;
+
+    /* 경고(취소, 탈퇴, 오류) */
+    --danger: #dc2626;
+    --danger-bg: #fef2f2;
+
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 18px;
+
+    color-scheme: light;
+    font-family: 'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Apple SD Gothic Neo',
+        'Malgun Gothic', system-ui, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+#root {
+    min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    margin: 0;
+    line-height: 1.3;
+    color: var(--ink);
+}
+
+p {
+    margin: 0;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+/* ───────── 버튼 공통 ───────── */
+button {
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+}
+
+button:disabled {
+    cursor: not-allowed;
+}
+
+/* ───────── 입력창 공통 ───────── */
+input[type='text'],
+input[type='password'] {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+    font: inherit;
+    color: var(--text);
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+input::placeholder {
+    color: #94a3b8;
+}
+
+input[type='text']:focus,
+input[type='password']:focus {
+    outline: none;
+    border-color: var(--sky-400);
+    box-shadow: 0 0 0 3px var(--sky-100);
+}
+
+/* 키보드로 이동할 때 보이는 표시 */
+:focus-visible {
+    outline: 3px solid var(--sky-300);
+    outline-offset: 2px;
+}
+
+/* 움직임을 줄이도록 설정한 사용자를 위해 애니메이션 최소화 */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        transition: none !important;
+        animation: none !important;
+    }
+}
