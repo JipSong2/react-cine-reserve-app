@@ -1,10 +1,11 @@
 // src/App.tsx
 // 주요 기능: 메인 뼈대 & 라우팅 구성 (react-router-dom)
-// 상호작용 연계: 상단에 Header를 상시 배치하고, 경로에 따라 5개 페이지를 전환함.
+// 상호작용 연계: 상단에 Header, 하단에 Footer를 상시 배치하고, 경로에 따라 5개 페이지를 전환함.
 //               AuthProvider는 main.tsx에서 App 전체를 감싸고 있음.
 
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Header from './components/Header';
+import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
 import MovieDetailPage from './pages/MovieDetailPage';
 import BookingPage from './pages/BookingPage';
@@ -29,6 +30,8 @@ function App() {
                     <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>
             </main>
+
+            <Footer />
         </BrowserRouter>
     );
 }

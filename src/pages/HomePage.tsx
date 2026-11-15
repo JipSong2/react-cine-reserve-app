@@ -1,13 +1,14 @@
 // src/pages/HomePage.tsx (메인 영화 목록)
-// 주요 기능: 현재 상영작 목록 표시, 영화 검색창, 장르별 필터 탭, 정렬(기본/평점/최신 개봉), 불러오기 실패 시 다시 시도
+// 주요 기능: 맨 위 추천 영화 배너, 현재 상영작 목록 표시, 영화 검색창, 장르별 필터 탭, 정렬(기본/평점/최신 개봉), 불러오기 실패 시 다시 시도
 // 적용 개념: useMovies (Custom Hook), useMemo (검색어, 장르 필터링, 정렬 결과 캐싱), useCallback
-// 상호작용 연계: MovieCard.tsx 목록을 출력하고, 예매하기 클릭 시 /booking/:movieId,
+// 상호작용 연계: HeroBanner.tsx(추천 배너)와 MovieCard.tsx 목록을 출력하고, 예매하기 클릭 시 /booking/:movieId,
 //               포스터/제목 클릭 시 /movie/:movieId(상세 정보) 경로로 이동
 
 import { useState, useMemo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMovies } from '../hooks/useMovies';
 import MovieCard from '../components/MovieCard';
+import HeroBanner from '../components/HeroBanner';
 
 type SortOption = 'default' | 'rating' | 'release';
 
@@ -30,6 +31,12 @@ const HomePage: React.FC = () => {
         const usedGenreIds = new Set(movies.flatMap(movie => movie.genre_ids));
         return genres.filter(genre => usedGenreIds.has(genre.id));
     }, [movies, genres]);
+
+    // 상단 배너에 보여줄 영화: 배경 이미지가 있는 앞쪽 5편 (검색/장르/정렬과 상관없이 고정)
+    const heroMovies = useMemo(
+        () => movies.filter(movie => movie.backdrop_path).slice(0, 5),
+        [movies]
+    );
 
     // 검색어 + 장르 필터링 + 정렬 결과를 캐싱: 관련 값이 바뀔 때만 다시 계산
     const filteredMovies = useMemo(() => {
@@ -86,6 +93,8 @@ const HomePage: React.FC = () => {
 
     return (
         <div className="home-page">
+            <HeroBanner movies={heroMovies} onBook={handleBook} onDetail={handleDetail} />
+
             <h2>현재 상영작</h2>
 
             <input

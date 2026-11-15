@@ -1,6 +1,6 @@
 /* src/App.css
    화면별 스타일. 색 변수(--sky-*, --ink 등)는 index.css에 있음.
-   구성: 1 공통 버튼 / 2 헤더 / 3 레이아웃 / 4 영화 목록 / 5 예매 / 6 좌석 / 7 매점 / 8 마이페이지 / 9 로그인 모달 / 10 영화 상세 / 11 예매 완료 후 매점 권유 / 12 티켓 / 13 회원가입 완료 / 14 확인 팝업 */
+   구성: 1 공통 버튼 / 2 헤더 / 3 레이아웃 / 4 영화 목록 / 5 예매 / 6 좌석 / 7 매점 / 8 마이페이지 / 9 로그인 모달 / 10 영화 상세 / 11 예매 완료 후 매점 권유 / 12 티켓 / 13 회원가입 완료 / 14 확인 팝업 / 15 추천 영화 배너 / 16 푸터 */
 
 /* ═════════════ 1. 공통 버튼 ═════════════ */
 
@@ -121,6 +121,12 @@
     background: rgba(255, 255, 255, 0.45);
 }
 
+/* 지금 보고 있는 메뉴 */
+.header-nav a.active {
+    background: rgba(255, 255, 255, 0.75);
+    font-weight: 700;
+}
+
 .header-auth {
     display: flex;
     align-items: center;
@@ -174,6 +180,8 @@
 /* ═════════════ 3. 공통 레이아웃 ═════════════ */
 
 .app-main {
+    flex: 1 0 auto;
+    width: 100%;
     max-width: 1120px;
     margin: 0 auto;
     padding: 36px 24px 80px;
@@ -1714,4 +1722,231 @@
 .confirm-danger .confirm-ok:hover {
     background: #b91c1c;
     box-shadow: 0 4px 14px rgba(220, 38, 38, 0.35);
+}
+
+/* ═════════════ 15. 추천 영화 배너 ═════════════ */
+
+.hero {
+    position: relative;
+    margin-bottom: 40px;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    background: var(--ink);
+    box-shadow: 0 12px 30px rgba(12, 42, 67, 0.25);
+}
+
+/* 배경 이미지 위에 왼쪽이 더 어두운 남색을 덮어서 글자가 잘 보이게 함 */
+.hero-slide {
+    display: flex;
+    align-items: flex-end;
+    min-height: 380px;
+    padding: 40px 48px 68px;
+    background-image: linear-gradient(
+            90deg,
+            rgba(12, 42, 67, 0.94) 0%,
+            rgba(12, 42, 67, 0.7) 45%,
+            rgba(12, 42, 67, 0.15) 100%
+        ),
+        var(--hero-bg, none);
+    background-size: cover;
+    background-position: center 20%;
+    color: #fff;
+    animation: hero-fade 0.6s ease;
+}
+
+@keyframes hero-fade {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.hero-content {
+    max-width: 520px;
+}
+
+.hero-meta {
+    margin-bottom: 10px;
+    color: var(--sky-200);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.hero-title {
+    margin-bottom: 12px;
+    color: #fff;
+    font-size: 38px;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.hero-overview {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    overflow: hidden;
+    color: rgba(255, 255, 255, 0.86);
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.hero-book-btn,
+.hero-detail-btn {
+    padding: 12px 30px;
+    border-radius: var(--radius-sm);
+    font-size: 15px;
+    font-weight: 700;
+    transition: background-color 0.15s, box-shadow 0.15s;
+}
+
+.hero-book-btn {
+    border: none;
+    background: var(--sky-400);
+    color: var(--ink);
+}
+
+.hero-book-btn:hover {
+    background: var(--sky-300);
+    box-shadow: 0 4px 14px rgba(56, 189, 248, 0.4);
+}
+
+/* 흰 테두리만 있는 보조 버튼 */
+.hero-detail-btn {
+    border: 1.5px solid rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+}
+
+.hero-detail-btn:hover {
+    background: rgba(255, 255, 255, 0.22);
+}
+
+/* 아래 점: 지금 영화는 길쭉한 하늘색 */
+.hero-dots {
+    position: absolute;
+    bottom: 26px;
+    left: 48px;
+    display: flex;
+    gap: 8px;
+}
+
+.hero-dot {
+    position: relative;
+    width: 10px;
+    height: 10px;
+    padding: 0;
+    border: none;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.45);
+    transition: width 0.2s, background-color 0.2s;
+}
+
+/* 점이 작아서 누르기 어려우므로 눌리는 영역만 넓힘 */
+.hero-dot::after {
+    content: '';
+    position: absolute;
+    inset: -8px;
+}
+
+.hero-dot:hover {
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.hero-dot.active {
+    width: 28px;
+    background: var(--sky-400);
+}
+
+@media (max-width: 640px) {
+    .hero {
+        margin-bottom: 30px;
+    }
+
+    .hero-slide {
+        min-height: 340px;
+        padding: 28px 22px 60px;
+        background-image: linear-gradient(
+                0deg,
+                rgba(12, 42, 67, 0.94) 0%,
+                rgba(12, 42, 67, 0.65) 55%,
+                rgba(12, 42, 67, 0.25) 100%
+            ),
+            var(--hero-bg, none);
+    }
+
+    .hero-title {
+        font-size: 28px;
+    }
+
+    .hero-overview {
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+    }
+
+    .hero-actions {
+        gap: 10px;
+    }
+
+    .hero-book-btn,
+    .hero-detail-btn {
+        padding: 11px 22px;
+    }
+
+    .hero-dots {
+        bottom: 22px;
+        left: 22px;
+    }
+}
+
+/* ═════════════ 16. 푸터 ═════════════ */
+
+.footer {
+    border-top: 1px solid var(--line);
+    background: var(--surface);
+    padding: 28px max(24px, calc((100% - 1120px) / 2));
+}
+
+.footer-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px 40px;
+}
+
+.footer-logo {
+    color: var(--ink);
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+}
+
+.footer-text {
+    margin-top: 2px;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.footer-credit {
+    max-width: 460px;
+    color: var(--muted);
+    font-size: 12.5px;
+    line-height: 1.7;
+}
+
+.footer-credit a {
+    color: var(--ink);
+    font-weight: 700;
+    text-decoration: underline;
+    text-decoration-color: var(--sky-400);
+    text-underline-offset: 3px;
 }
