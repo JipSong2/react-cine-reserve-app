@@ -2,7 +2,7 @@
 // 주요 기능: 상영 시간, 예매 가능 날짜, 회차 고유 키, 좌석 초기 데이터 등 상영 일정 관련 유틸
 // 상호작용 연계: BookingPage.tsx(날짜/시간 선택, 회차 키, 빈 좌석 생성),
 //               MyPage.tsx(예매 취소/회원 탈퇴 시 좌석 반환(releaseSeats), 상영 종료 여부), SeatGrid.tsx(좌석 행/열 수),
-//               TicketModal.tsx(날짜 표기)에서 사용.
+//               TicketModal.tsx(날짜 표기)에서 사  용.
 
 import type { SeatState, MovieSchedule, BookingRecord } from '../types';
 

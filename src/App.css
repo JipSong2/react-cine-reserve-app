@@ -559,6 +559,109 @@
     pointer-events: none;
 }
 
+/* ───── 추천 좌석 (SeatGrid 위쪽 버튼과 결과 안내) ───── */
+
+.seat-recommend {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px 14px;
+    width: 100%;
+    margin-bottom: 18px;
+}
+
+/* 하늘색 테두리 + 연한 하늘색 바탕: '장바구니 담기'와 같은 보조 행동 버튼 모양 */
+.seat-recommend-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 18px;
+    border: 1.5px solid var(--sky-400);
+    border-radius: var(--radius-sm);
+    background: var(--sky-50);
+    color: var(--ink);
+    font-size: 14px;
+    font-weight: 700;
+    transition: background-color 0.15s, box-shadow 0.15s;
+}
+
+.seat-recommend-btn svg {
+    flex: none;
+}
+
+.seat-recommend-btn:hover:not(:disabled) {
+    background: var(--sky-400);
+    box-shadow: 0 4px 14px rgba(56, 189, 248, 0.4);
+}
+
+.seat-recommend-btn:disabled {
+    opacity: 0.5;
+}
+
+.seat-recommend-hint {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+/* 결과 안내: 매점의 '예매 완료 안내'(.food-notice)와 같은 왼쪽 선 스타일 */
+.seat-recommend-notice {
+    width: min(100%, 520px);
+    margin-bottom: 22px;
+    padding: 12px 16px;
+    border-left: 4px solid var(--sky-400);
+    border-radius: var(--radius-sm);
+    background: var(--sky-50);
+    color: var(--ink);
+    font-size: 14px;
+}
+
+.seat-recommend-title {
+    font-weight: 700;
+}
+
+/* 추천된 좌석 번호 칩 */
+.seat-recommend-seats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 8px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.seat-recommend-seats li {
+    padding: 2px 11px;
+    border: 1px solid var(--sky-300);
+    border-radius: 999px;
+    background: var(--surface);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+/* 통로를 사이에 두거나 다른 줄에 떨어져 앉는 경우: 같은 하늘색이지만 선을 조금 진하게 */
+.seat-recommend-notice.is-aisle,
+.seat-recommend-notice.is-apart {
+    border-left-color: var(--sky-500);
+}
+
+/* 추천할 자리가 부족한 경우: 경고 색 */
+.seat-recommend-notice.is-none {
+    border-left-color: var(--danger);
+    background: var(--danger-bg);
+    color: #b91c1c;
+}
+
+@media (max-width: 520px) {
+    .seat-recommend-btn {
+        justify-content: center;
+        width: 100%;
+    }
+
+    .seat-recommend-hint {
+        text-align: center;
+    }
+}
 @media (max-width: 520px) {
     .booking-step {
         padding: 18px;
